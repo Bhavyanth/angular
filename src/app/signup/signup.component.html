@@ -31,7 +31,7 @@
                                 <input type="email" placeholder="Enter your email" class="form-control"
                                 [formControl]="myForm.controls['email']">
                                 <small class="form-text text-muted">
-                                    We'll never share your email with anyone else
+                                    We'll not share your email with anyone
                                 </small>
                             </div>
                             <div class="alert alert-danger" *ngIf ="!myForm.controls['email'].valid &&
@@ -60,6 +60,13 @@
                    </div>
                </div>
            </div>
+           <div class="alert alert-success" *ngIf="message.length > 0" >
+               {{ message }}
+            </div>
+
+            <div class="alert alert-danger" *ngIf="userError" >
+                {{ userError.message }}
+             </div>
     </div>
    </div>
 </div>

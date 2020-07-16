@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import { AuthService } from '../auth.service';
+
+
 
 @Component({
   selector: 'app-signup',
@@ -9,8 +14,11 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 export class SignupComponent implements OnInit {
 
   myForm: FormGroup;
+  message: string = "";
+  userError: any;
 
-  constructor(public fb: FormBuilder) {
+
+  constructor(public fb: FormBuilder, public authService: AuthService) {
     this.myForm = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -38,7 +46,20 @@ checkIfMatchingPasswords(passwordKey: string, confirmPasswordKey: string){
 }
 
   onSubmit(signupform){
-    console.log(signupform.value);
+    let email: string = signupform.value.email;
+    let password: string = signupform.value.password;
+    let firstName: string = signupform.value.firstName;
+    let lastName: string = signupform.value.lastName;
+
+    this.authService.signup(email, password, firstName, lastName).then(() => {
+      
+          this.message = "You have signed up successfully. Please Login."
+
+    }).catch((error) =>{
+      console.log(error);
+      this.userError = error;
+    })
+   
   }
   ngOnInit() {
   }
