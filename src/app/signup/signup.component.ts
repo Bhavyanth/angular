@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/firestore';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+
 
 
 
@@ -51,9 +54,20 @@ checkIfMatchingPasswords(passwordKey: string, confirmPasswordKey: string){
     let firstName: string = signupform.value.firstName;
     let lastName: string = signupform.value.lastName;
 
-    this.authService.signup(email, password, firstName, lastName).then(() => {
+    this.authService.signup(email, password, firstName, lastName).then((user: any) => {
       
-          this.message = "You have signed up successfully. Please Login."
+          firebase.firestore().collection("users").doc(user.uid).set({
+            firstName: signupform.value.firstName,
+            lastName: signupform.value.lastName,
+            email: signupform.value.email,
+            photoURL: user.photoURL,
+            interests: "",
+            bio: "",
+            hobbies: ""
+          }).then(()=>{
+            this.message = "You have signed up successfully. Please Login."
+          })
+          
 
     }).catch((error) =>{
       console.log(error);
