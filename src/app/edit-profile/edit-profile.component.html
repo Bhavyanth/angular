@@ -1,3 +1,4 @@
+
 <div class="row mt-5">
     <div class="offset-sm-1 col-sm-10">
         <div class="card-text-blank bg-light">
@@ -5,12 +6,34 @@
                 <div class="card-title">
                     <h1>Profile</h1>
                 </div>
-                <div class="card-text">
+                <!-- <div class="card-text">
                     <div class="row">
-                        <div class="col-sm-4">
-                            <img [src]="user.photoURL" width="256"
-                            height="256" class= "img-circle">
-                        </div>
+                        <div class="col-sm-4 hoverable" for="fileInput">
+                            <img [src]="user.photoURL ? user.photoURL: 'https://www.w3schools.com/howto/img_avatar.png'"
+                            width="256" height="256" class= "img-circle"> 
+                            <div class="hover-text">Choose file</div>
+                              <div class="background"></div>
+                            </div>
+                              <input id="fileInput" type='file' (change)="onFile($event)"> -->
+                            <!-- <label class="hoverable" for="fileInput">
+                              <img [src]="user.photoURL ? user.photoURL : 'https://www.w3schools.com/howto/img_avatar.png'" 
+                              width="256" height="256" class= "img-circle">
+                              <div class="hover-text">Choose file</div>
+                              <div class="background"></div>
+                            </label>
+                            <br/>
+                            <input id="fileInput" type='file' (change)="onSelectFile($event)"> -->
+                            <!-- <button *ngIf="photoURL" (click)="delete()" >delete</button> -->
+                            <label class="hoverable" for="fileInput">
+                              <img [src]="user.photoURL ? user.photoURL : 'https://www.w3schools.com/howto/img_avatar.png'"> 
+                              <div class="hover-text">Choose file</div>
+                              <div class="background"></div>
+                            </label>
+                            <br/>
+                            <input id="fileInput" type='file' (change)="onFile($event)">
+                            <button *ngIf="photoURL" (click)="delete()" >delete</button>
+
+                        
                         <div class="col-sm-8">
                             <div class="form-group row">
                                 <label class="col-sm-2
@@ -44,8 +67,8 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    <!-- </div>
+</div> -->
 
 <div class="row">
     <div class="offset-sm-1 col-sm-10">

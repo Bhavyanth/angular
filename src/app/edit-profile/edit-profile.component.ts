@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,18 +13,21 @@ export class EditProfileComponent implements OnInit {
 
   user: any ={};
   message:string;
-  constructor() { 
+  photoURL = '';
+  constructor(private spinner: NgxSpinnerService) { 
     this.getProfile();
   }
 
   ngOnInit() {
   }
   getProfile(){
+    this.spinner.show();
     let userId = firebase.auth().currentUser.uid;
     firebase.firestore().collection("users").doc(userId).get().then((documentSnapshot)=>{
       this.user = documentSnapshot.data();
       this.user.displayName = this.user.firstName + " " + this.user.lastName;
       this.user.id = documentSnapshot.id;
+      this.spinner.hide;
     }).catch((error)=>{
       console.log(error);
     })
@@ -32,7 +36,7 @@ export class EditProfileComponent implements OnInit {
   update(){
     
     this.message = "Updating Profile...";
-
+    this.spinner.show();
     firebase.auth().currentUser.updateProfile({
       displayName: this.user.displayName, photoURL: this.user.photoUrl
     }).then(() => {
@@ -41,11 +45,13 @@ export class EditProfileComponent implements OnInit {
       firebase.firestore().collection("users").doc(userId).update({
         first_name: this.user.displayName.split(' ')[0],
         last_name: this.user.displayName.split(' ')[1],
+        photoURL: this.user.photoURL,
         hobbies: this.user.hobbies,
         interests: this.user.interests,
-        bio: this.user.bio
+        bio: this.user.bio,
+        
       }).then(() => {
-
+        this.spinner.hide();
         this.message = "Profile Updated Successfully.";
 
       }).catch((error) => {
@@ -55,6 +61,18 @@ export class EditProfileComponent implements OnInit {
       console.log(error)
     })
 
+  }
+  onFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); 
+      reader.onload = (event) => { 
+        this.user.photoURL = event.target.result;
+      }
+    }
+  }
+  public delete(){
+    this.user.photoURL = null;
   }
 
 }

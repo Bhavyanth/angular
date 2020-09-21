@@ -1,3 +1,10 @@
 .vertical-divider{
     border-right: 1px solid #ddd;
 }
+.background {
+    background-color:  #2e7cf6;
+    /* background-image: url(https://phoenixaerodrone.files.wordpress.com/2020/07/img_20191124_172536-1.jpg); */
+    background-image: url(https://phoenixaerodrone.files.wordpress.com/2020/09/193719fn9zdt933hmfddfm-e1600531326282.jpg);
+    background-position: right center;
+    height: 100%
+}

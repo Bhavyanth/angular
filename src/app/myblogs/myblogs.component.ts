@@ -11,9 +11,11 @@ import 'firebase/firestore';
 export class MyblogsComponent implements OnInit {
 
   user: any={};
+  photoURL : any;
   posts: any[] = [];
   constructor() { 
     this.user = firebase.auth().currentUser;
+    this.photoURL = this.user.photoURL;
     this.getPosts();
   }
 

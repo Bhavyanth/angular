@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +21,7 @@ import { ViewComponent } from './view/view.component';
 import { NgxTextEditorModule } from 'ngx-text-editor';
 import { CommentsComponent } from './comments/comments.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 let firebaseConfig = {
   apiKey: "AIzaSyCqKcPC4R_qXkZn64i4ieCF20doK9v8GDo",
@@ -70,9 +71,11 @@ firebase.initializeApp(firebaseConfig);
     ReactiveFormsModule,
     FormsModule,
     NgxTextEditorModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

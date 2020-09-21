@@ -2,7 +2,8 @@
     <div class="col-sm3 offset-sm-1">
 
         <div class="card mt-5">
-            <img  class="card-img-top" [src]="user.photoURL">
+            <img [src]="user.photoURL" class="img-circle" height="200" width="200">
+            <!-- <img  class="card-img-top img-circle" [src]="user.photoURL"> -->
             <div class ="card-body">
                 <h4 class="card-title">{{ user.displayName }}</h4>
                 <a routerLink="/edit-profile/{{user.uid}}"

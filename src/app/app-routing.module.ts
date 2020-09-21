@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth.guard';
 import { ViewComponent } from './view/view.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 
@@ -24,6 +25,8 @@ const routes: Routes = [{
   path: 'edit-profile/:id', component: EditProfileComponent
 },{
   path: 'view/:postId', component: ViewComponent
+},{
+  path: 'signup', component: SignupComponent
 },{
   path: '**', redirectTo: 'home'
 }]

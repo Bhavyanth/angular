@@ -19,7 +19,8 @@ export class SignupComponent implements OnInit {
   myForm: FormGroup;
   message: string = "";
   userError: any;
-
+  loggedIn: boolean = false;
+  user: any;
 
   constructor(public fb: FormBuilder, public authService: AuthService) {
     this.myForm = this.fb.group({
@@ -31,6 +32,25 @@ export class SignupComponent implements OnInit {
     }, {
       validator: this.checkIfMatchingPasswords("password", "confirmPassword")
     })
+
+    this.user = firebase.auth().currentUser;
+
+    if(this.user){
+      this.loggedIn = true;
+    }else{
+      this.loggedIn=false;
+    }
+
+    firebase.auth().onAuthStateChanged((user) =>{
+
+      if(user){
+        this.loggedIn=true;
+      }else{
+        this.loggedIn=false;
+      }
+
+    })
+
 
    }
 
