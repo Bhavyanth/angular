@@ -23,16 +23,20 @@ import { NgxTextEditorModule } from 'ngx-text-editor';
 import { CommentsComponent } from './comments/comments.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 let firebaseConfig = {
-  apiKey: "AIzaS*****PC4R_qXk****4i4ie********",
-  authDomain: "phoenix-******.firebaseapp.com",
+  apiKey: "****",
+  authDomain: "phoenix-*****.firebaseapp.com",
   databaseURL: "https://phoenix-*****.firebaseio.com",
-  projectId: "phoenix-******",
-  storageBucket: "phoenix-******.appspot.com",
-  messagingSenderId: "************",
-  appId: "1:295*********:web:6*************d9b",
-  measurementId: "G-9********P"
+  projectId: "phoenix-****",
+  storageBucket: "phoenix-*****.appspot.com",
+  messagingSenderId: "29*******282",
+  appId: "1:2950305**********************d9b",
+  measurementId: "G-9***************"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -74,7 +78,11 @@ firebase.initializeApp(firebaseConfig);
     CKEditorModule,  
     NgxTextEditorModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    RichTextEditorModule,
+    AngularEditorModule,
+    BrowserAnimationsModule, 
+    ToastrModule.forRoot() 
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

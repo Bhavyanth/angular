@@ -5,6 +5,10 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import { FormsModule } from '@angular/forms';
 import { NgxEditorModule } from 'ngx-editor';
+import { ToolbarService, LinkService, ImageService, HtmlEditorService } from '@syncfusion/ej2-angular-richtexteditor';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { NgxSpinnerService } from "ngx-spinner"; 
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-create',
@@ -13,42 +17,70 @@ import { NgxEditorModule } from 'ngx-editor';
 })
 export class CreateComponent implements OnInit {
 
-  editorConfig: any;
+  editorConfig: AngularEditorConfig = {editable: true,
+    spellcheck: true,
+    height: 'auto',
+    minHeight: '0',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      {class: 'arial', name: 'Arial'},
+      {class: 'times-new-roman', name: 'Times New Roman'},
+      {class: 'calibri', name: 'Calibri'},
+      {class: 'comic-sans-ms', name: 'Comic Sans MS'}
+    ],
+    customClasses: [
+    {
+      name: 'quote',
+      class: 'quote',
+    },
+    {
+      name: 'redText',
+      class: 'redText'
+    },
+    {
+      name: 'titleText',
+      class: 'titleText',
+      tag: 'h1',
+    },
+  ],
+  uploadUrl: 'v1/image',
+  uploadWithCredentials: false,
+  sanitize: true,
+  toolbarPosition: 'top',
+  toolbarHiddenButtons: [
+    ['bold', 'italic'],
+    ['fontSize']
+  ]};
+  ckeConfig: any;
   title: string;
   content: string;
   @Output('postCreated') postCreated = new EventEmitter();
 
-  constructor() { 
-    this.editorConfig={
-      "editable": true,
-      "spellcheck": true,
-      "height": "auto",
-      "minHeight": "150px",
-      "width": "auto",
-      "minWidth": "0",
-      "translate": "yes",
-      "enableToolbar": true,
-      "showToolbar": false,
-      "placeholder": "Enter text here...",
-      "imageEndPoint": "",
-      "toolbar":[
-        ["bold", "italic","underline", "strikeThrough", "superscript", "subscript"],
-        ["justifyLeft", "justifyCenter", "justifyRight", "justifyFull", "indent", "outdent"],
-        ["cut", "copy", "delete", "removeFormat", "undo","redo"],
-        ["paragraph", "blockquote", "removeBlockquote", "horizontalLine","orderedList", "unorderedList"],
-        ["link", "unlink"/*, "image"*/],
-        ["code"]
-      ]
-
-    }
+  constructor(private SpinnerService: NgxSpinnerService, private toastr: ToastrService) { 
+    
   }
 
   ngOnInit() {
+    this.createPost()    
+        this.ckeConfig = {    
+          allowedContent: false,    
+          extraPlugins: 'divarea',    
+          forcePasteAsPlainText: true    
+        };    
   }
 
   createPost(){
 
-  
+   
     firebase.firestore().collection("posts").add({
       title: this.title, 
       content: this.content,
@@ -57,8 +89,10 @@ export class CreateComponent implements OnInit {
     }).then((data)=> {
       console.log(data);
       this.postCreated.emit();
+      this.toastr.success('Post created successfully');
     }).catch((error)=>{
       console.log(error);
+      this.toastr.error("Post creation failed");
     })
 
   }

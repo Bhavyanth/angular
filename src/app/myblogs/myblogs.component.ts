@@ -23,8 +23,7 @@ export class MyblogsComponent implements OnInit {
   }
 
   getPosts(){
-    // get the list of posts
-
+ 
     firebase.firestore().collection("posts")
     .orderBy("created", "desc")
     .get().then((querySnapshot) => {
@@ -39,7 +38,6 @@ export class MyblogsComponent implements OnInit {
   }
  
   onPostCreated(){
-    // refresh the list of posts
     this.posts=[];
     this.getPosts();
 

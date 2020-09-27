@@ -14,8 +14,8 @@ export class PostComponent implements OnInit {
   @Input('post') post: any;
   @Output ('onDelete') onDelete = new EventEmitter();
 
-  postData: any = {}; // data of the post from post object
-  user: any = {}; // info about the user
+  postData: any = {}; 
+  user: any = {}; 
 
   constructor() { }
 

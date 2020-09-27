@@ -22,7 +22,7 @@
 
     <li class="nav-item" routerLinkActive='active' data-toggle="collapse"
     data-target=".navbar-collapse" *ngIf="loggedIn">
-    <a class="nav-link" routerLink="/myblogs">My Blogs</a>
+    <a class="nav-link" routerLink="/myblogs">Blogs</a>
     </li>
 
     <li class="nav-item" routerLinkActive='active' data-toggle="collapse"
@@ -37,7 +37,9 @@
         data-toggle="collapse" data-target=".navbar-collapse">
         <button class="btn btn-outline-light px-4"
         routerLink="/login">Login</button>
-    </li>
+        </li>
+
+
 
      <li class="nav-item right" *ngIf="!loggedIn">
         <button class="btn btn-outline-light px-4"
@@ -48,6 +50,11 @@
         <button class="btn btn-outline-light px-4"
         routerLink="/" (click)="logout()">Logout</button>
     </li>
+     <!-- <li class="nav-item right" *ngIf="loggedIn">
+         <img [src]="user.photoURL" class="img-circle" height="50" width="50"> 
+         <button class="btn btn-outline-light px-4"
+         routerLink="/edit-profile/{{user.uid}}">Edit</button>
+    </li>  -->
 
     </ul>
 

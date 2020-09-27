@@ -9,7 +9,9 @@
 
          <div class="form-group">
             <label>Post Content</label>
-            <ngx-text-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="content"></ngx-text-editor>
+            <!-- <ngx-text-editor [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="content"></ngx-text-editor> -->
+            <ckeditor  [spellcheck]="true"  [config]="ckeConfig" [(ngModel)]="content"></ckeditor>     
+            <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="content"></angular-editor> -->
             <!-- <ngx-editor [placeholder]= "'Enter text here...'" [config]="editorConfig"
             [(ngModel)]="content"></ngx-editor> -->
         </div> 
@@ -20,3 +22,6 @@
 
     </div>
 </div>
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+    <p style="color: white"></p>  
+</ngx-spinner>  

@@ -3,6 +3,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,20 +16,21 @@ export class EditProfileComponent implements OnInit {
   user: any ={};
   message:string;
   photoURL = '';
-  constructor(private spinner: NgxSpinnerService) { 
+  constructor(private spinner: NgxSpinnerService, private notify: NotificationService) { 
     this.getProfile();
   }
 
   ngOnInit() {
   }
   getProfile(){
-    this.spinner.show();
+    
     let userId = firebase.auth().currentUser.uid;
+    this.spinner.show();
     firebase.firestore().collection("users").doc(userId).get().then((documentSnapshot)=>{
       this.user = documentSnapshot.data();
       this.user.displayName = this.user.firstName + " " + this.user.lastName;
       this.user.id = documentSnapshot.id;
-      this.spinner.hide;
+      this.spinner.hide();
     }).catch((error)=>{
       console.log(error);
     })
@@ -36,11 +39,11 @@ export class EditProfileComponent implements OnInit {
   update(){
     
     this.message = "Updating Profile...";
+    this.notify.showInfo ('Updating Profile');
     this.spinner.show();
     firebase.auth().currentUser.updateProfile({
       displayName: this.user.displayName, photoURL: this.user.photoUrl
     }).then(() => {
-
       let userId = firebase.auth().currentUser.uid;
       firebase.firestore().collection("users").doc(userId).update({
         first_name: this.user.displayName.split(' ')[0],
@@ -53,7 +56,7 @@ export class EditProfileComponent implements OnInit {
       }).then(() => {
         this.spinner.hide();
         this.message = "Profile Updated Successfully.";
-
+        this.notify.showSuccess('Profile Updated successfully');
       }).catch((error) => {
         console.log(error)
       })
