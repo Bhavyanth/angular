@@ -16,7 +16,7 @@ export class EditProfileComponent implements OnInit {
   user: any ={};
   message:string;
   photoURL = '';
-  constructor(private spinner: NgxSpinnerService, private notify: NotificationService) { 
+  constructor(private spinner: NgxSpinnerService, private notify: NotificationService, private toastr:ToastrService) { 
     this.getProfile();
   }
 
@@ -33,13 +33,14 @@ export class EditProfileComponent implements OnInit {
       this.spinner.hide();
     }).catch((error)=>{
       console.log(error);
+      this.spinner.hide();
     })
   }
 
   update(){
     
     this.message = "Updating Profile...";
-    this.notify.showInfo ('Updating Profile');
+    this.toastr.info('Updating profile..');
     this.spinner.show();
     firebase.auth().currentUser.updateProfile({
       displayName: this.user.displayName, photoURL: this.user.photoUrl
@@ -52,15 +53,15 @@ export class EditProfileComponent implements OnInit {
         hobbies: this.user.hobbies,
         interests: this.user.interests,
         bio: this.user.bio,
-        
       }).then(() => {
         this.spinner.hide();
-        this.message = "Profile Updated Successfully.";
-        this.notify.showSuccess('Profile Updated successfully');
+        this.toastr.success('Profile Updated Successfully');
       }).catch((error) => {
         console.log(error)
       })
     }).catch((error) => {
+      this.spinner.hide();
+      this.toastr.error('Error updating profile');
       console.log(error)
     })
 
@@ -75,7 +76,9 @@ export class EditProfileComponent implements OnInit {
     }
   }
   public delete(){
+    this.spinner.show();
     this.user.photoURL = null;
+    this.spinner.hide();
   }
 
 }

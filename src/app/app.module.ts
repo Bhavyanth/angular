@@ -27,16 +27,18 @@ import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { AppCreateComponent } from './app-create/app-create.component';
+import { BlogComponent } from './blog/blog.component';
 
 let firebaseConfig = {
-  apiKey: "****",
-  authDomain: "phoenix-*****.firebaseapp.com",
-  databaseURL: "https://phoenix-*****.firebaseio.com",
-  projectId: "phoenix-****",
-  storageBucket: "phoenix-*****.appspot.com",
-  messagingSenderId: "29*******282",
-  appId: "1:2950305**********************d9b",
-  measurementId: "G-9***************"
+  apiKey: "AIz*********************Do",
+  authDomain: "*****************.com",
+  databaseURL: "https:/************.com",
+  projectId: "*****-******4e",
+  storageBucket: "***********.com",
+  messagingSenderId: "******************",
+  appId: "1:2************************d9b",
+  measurementId: "G-**********************"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -67,7 +69,11 @@ firebase.initializeApp(firebaseConfig);
    
     CommentsComponent,
    
-    EditProfileComponent
+    EditProfileComponent,
+   
+    AppCreateComponent,
+   
+    BlogComponent
   ],
   imports: [
     BrowserModule,

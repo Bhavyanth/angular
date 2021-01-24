@@ -6,6 +6,10 @@ nav {
     border-bottom: 1px solid #26e0cc;
 }
 
+a {
+    color: rgb(180, 228, 190);
+  }
+
 .account-icon{
     border-radius: 4px;
     float: left;

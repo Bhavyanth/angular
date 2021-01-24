@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> -->
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1a0c33;">
    <a class="navbar-brand" href="#">
        <img src="https://phoenixaerodrone.files.wordpress.com/2020/09/logo.png">
    </a> 
@@ -22,7 +23,12 @@
 
     <li class="nav-item" routerLinkActive='active' data-toggle="collapse"
     data-target=".navbar-collapse" *ngIf="loggedIn">
-    <a class="nav-link" routerLink="/myblogs">Blogs</a>
+    <a class="nav-link" routerLink="/myblogs">Create</a>
+    </li>
+
+    <li class="nav-item" routerLinkActive='active' data-toggle="collapse"
+    data-target=".navbar-collapse" *ngIf="loggedIn">
+    <a class="nav-link" routerLink="/blog">Blogs</a>
     </li>
 
     <li class="nav-item" routerLinkActive='active' data-toggle="collapse"
@@ -61,3 +67,4 @@
 </div>
 
 </nav>
+<ngx-spinner></ngx-spinner>

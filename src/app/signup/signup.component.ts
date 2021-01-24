@@ -5,9 +5,8 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-
-
-
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-signup',
@@ -22,7 +21,7 @@ export class SignupComponent implements OnInit {
   loggedIn: boolean = false;
   user: any;
 
-  constructor(public fb: FormBuilder, public authService: AuthService) {
+  constructor(public fb: FormBuilder, public authService: AuthService,private toastr:ToastrService, private spinner:NgxSpinnerService ) {
     this.myForm = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -64,6 +63,7 @@ checkIfMatchingPasswords(passwordKey: string, confirmPasswordKey: string){
       confirmPassword.setErrors({
         notEqualToPassword: true
       })
+      this.toastr.error('Password mistach');
     }
   }
 }
@@ -73,7 +73,7 @@ checkIfMatchingPasswords(passwordKey: string, confirmPasswordKey: string){
     let password: string = signupform.value.password;
     let firstName: string = signupform.value.firstName;
     let lastName: string = signupform.value.lastName;
-
+    this.spinner.show();
     this.authService.signup(email, password, firstName, lastName).then((user: any) => {
       
           firebase.firestore().collection("users").doc(user.uid).set({
@@ -85,13 +85,15 @@ checkIfMatchingPasswords(passwordKey: string, confirmPasswordKey: string){
             bio: "",
             hobbies: ""
           }).then(()=>{
-            this.message = "You have signed up successfully. Please Login."
+            this.spinner.hide();
+            this.toastr.success('You have signed up successfully');
+            this.toastr.info('Please login');
           })
-          
-
     }).catch((error) =>{
+      this.spinner.hide();
       console.log(error);
       this.userError = error;
+      this.toastr.error('Error signing up');
     })
    
   }

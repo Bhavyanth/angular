@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-comments',
@@ -16,7 +17,7 @@ export class CommentsComponent implements OnInit {
   loggedIn: boolean = false;
   @Input("postId") postId: string;
 
-  constructor() {
+  constructor(private toastr:ToastrService, private spinner:NgxSpinnerService) {
     firebase.auth().onAuthStateChanged((user)=>{
         if(user){
           this.loggedIn = true;
@@ -42,10 +43,13 @@ export class CommentsComponent implements OnInit {
       ownerName: firebase.auth().currentUser.displayName,
       created: firebase.firestore.FieldValue.serverTimestamp()
     }).then((data)=>{
+      this.spinner.show();
       console.log("Comment is saved!")
+      this.toastr.success('Success');
       this.getComments();
     }).catch((error)=>{
       console.log(error);
+      this.toastr.error('Error saving comments');
     })
   }
 

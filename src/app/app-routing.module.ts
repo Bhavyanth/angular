@@ -8,8 +8,7 @@ import { AuthGuard } from './auth.guard';
 import { ViewComponent } from './view/view.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { SignupComponent } from './signup/signup.component';
-
-
+import { BlogComponent } from './blog/blog.component';
 
 const routes: Routes = [{
   path: '', redirectTo: 'home', pathMatch: 'full'
@@ -20,6 +19,8 @@ const routes: Routes = [{
 },{
   path: 'myblogs', component: MyblogsComponent,canActivate: [AuthGuard]
 },{
+  path: 'blog', component: BlogComponent, canActivate:[AuthGuard]
+},{
   path: 'profile/:id', component: ProfileComponent
 },{
   path: 'edit-profile/:id', component: EditProfileComponent
@@ -28,7 +29,7 @@ const routes: Routes = [{
 },{
   path: 'signup', component: SignupComponent
 },{
-  path: '**', redirectTo: 'home'
+  path: '*', redirectTo: 'home'
 }]
 
 @NgModule({
